@@ -9,7 +9,7 @@ telinha = f'''
 +++++++++++++
 '''
 
-print("TEstando commit")
+print("So um teste mesmo")
 
 def criar_janela_bloco():
     
