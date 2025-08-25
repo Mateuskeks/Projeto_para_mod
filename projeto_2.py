@@ -8,8 +8,7 @@ telinha = f'''
     --       
 +++++++++++++
 '''
-print('xereca')
-print("So um teste mesmo")
+
 
 def criar_janela_bloco():
     
