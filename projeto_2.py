@@ -11,6 +11,9 @@ telinha = f'''
 
 
 def criar_janela_bloco():
+    def fecha():
+        bloco.destroy()
+        janela_pri()
     
     def criar_bloco():
 
@@ -77,7 +80,7 @@ def criar_janela_bloco():
     texto_6 = tk.Label(bloco,text='Nome do arquivo (.hjson)')
     nome_arquivo_entry = tk.Entry(bloco,width=30)
 
-    voltar_pri = tk.Button(bloco,text='Voltar para pagina principal',command=janela_pri)
+    voltar_pri = tk.Button(bloco,text='Voltar para pagina principal',command=fecha)
 
 
     criar_item = tk.Button(bloco,text='Criar',command=criar_bloco)
@@ -125,8 +128,7 @@ def janela_pri():
         
     janela = tk.Tk()
     janela.title('Janela Principal')
-    criar_janela_bloco.destroy()
-
+ 
     escolha_texto = tk.Label(janela,text='Digite o numero para criar o tipo de bloco')
     tela = tk.Label(janela,text=telinha)
     entrada = tk.Entry(janela)
