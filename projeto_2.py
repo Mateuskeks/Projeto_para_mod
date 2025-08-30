@@ -14,37 +14,41 @@ Tipo 5 : Item; Aqui voçe escolhe o tipo de item e suas info, se ele explode ou 
 
 def criar_janela_item():
 
-    #Criaçao dajanela
+    #Criaçao da janela
     item = tk.Tk()
     item.title("Item")
 
 
     #Fim da janela
     item.mainloop()
+    #--------------------------------------------------------------- Fim
 
 def criar_janela_bloco():
-
     def fecha():
+        #Funçao para chamar a janela principal
         bloco.destroy()
         janela_pri()
+        #--------------------------------------------------------------- Fim
     
     def criar_bloco():
+        #Funçao para transformar as info em arquivo
 
-        print('chamou')
-        
+        #Coletar informaçoes dos entry
         nome = nome_bloco.get().strip()
         descricao = descri_bloco.get().strip()
         tamanho = tam_bloco.get().strip()
         vida = vida_bloco.get().strip()
         nome_arquivo = nome_arquivo_entry.get().strip()
         
+        #Verificaçao para verse todos os campos estao completos
         if not nome or not descricao or not tamanho.isdigit() or not vida.isdigit() or not nome_arquivo:
             messagebox.showerror("Erro", "Preencha todos os campos corretamente.")
             return
         if not nome_arquivo.endswith(".hjson"):
             nome_arquivo += ".hjson"
-
-        dados = {
+        
+        #Criaçao da estrutura do arquivo hjson
+        dados = f'''
             "type": "Wall",
             "name": nome,
             "localizedName": f"{descricao}",
@@ -55,8 +59,10 @@ def criar_janela_bloco():
             "health": int(vida),
             "requirements": ["copper/10"],
             "buildCostMultiplier": 1.0
-        }
+        '''
+        #test
         print(dados)
+        #Salvar o arquivo em hjson
         try:
             with open(nome_arquivo,'w') as arq:
 
@@ -65,15 +71,17 @@ def criar_janela_bloco():
 
         except Exception as e:
             messagebox.showerror("Erro ao salvar",str(e)) 
+        #--------------------------------------------------------------- Fim
 
-    #------------------
-    #criar janela
+   
+    #------------------ criar janela
     bloco = tk.Tk()
     bloco.title('Criar arquivo')
-    
-    #texto opçoes
-    texto_func = tk.Label(bloco,text="Aqui estao as opçoes e suas funçoes")
+    #------------------
 
+    #------------------ Opcoes, Entradas
+    #Opcoes
+    texto_func = tk.Label(bloco,text="Aqui estao as opçoes e suas funçoes")
 
     #nome da torre
     texto_nome = tk.Label(bloco,text='Digite o nome do Seu bloco')
@@ -96,9 +104,7 @@ def criar_janela_bloco():
     nome_arquivo_entry = tk.Entry(bloco,width=30)
     #------------------
 
-
-    #Botoes
-    #------------------
+    #------------------ Botoes
     #Botao de voltar para pagina
     voltar_pri = tk.Button(bloco,text='Voltar para pagina principal',command=fecha)
 
@@ -106,33 +112,40 @@ def criar_janela_bloco():
     criar_item = tk.Button(bloco,text='Criar',command=criar_bloco)
     #------------------
 
-    #Posiçao dos elementos
-    #------------------
-    #opçoes e ex
+    
+    #------------------ Posiçao dos elementos
+    #Posicionar opcoes , entradas
+
     texto_func.grid(column=0,row=0, columnspan=2, pady=10)
+
     #nome bloco
     texto_nome.grid(column=0,row=1, sticky='w', padx=5, pady=5)
     nome_bloco.grid(column=1,row=1, padx=5, pady=5)
     
+    #descriçao bloco
     texto_descri.grid(column=0,row=2, sticky='w', padx=5, pady=5)
     descri_bloco.grid(column=1,row=2, padx=5, pady=5)
     
+    #tamanho bloco
     texto_tam.grid(column=0,row=3, sticky='w', padx=5, pady=5)
     tam_bloco.grid(column=1,row=3, padx=5, pady=5)
     
+    #vida bloco
     texto_vida.grid(column=0,row=4, sticky='w', padx=5, pady=5)
     vida_bloco.grid(column=1,row=4, padx=5, pady=5)
 
+    #arquivo bloco
     texto_arq.grid(column=0, row=5,stick='w',padx=5,pady=5)
     nome_arquivo_entry.grid(column=1,row=5,padx=5,pady=5)
 
+    #Botao voltar e criar
     criar_item.grid(column=0,row=6, columnspan=2, pady=10)
     voltar_pri.grid(column=1,row=6,columnspan=2,padx=130,pady=20)
     #------------------
-
+  
+    #Fim do janela
     bloco.mainloop()
-
-
+    #--------------------------------------------------------------- Fim
 
 def janela_pri():
     def tipo():
