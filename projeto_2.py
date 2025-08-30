@@ -1,5 +1,7 @@
 import tkinter as tk
+
 from tkinter import messagebox
+
 import hjson 
 
 telinha = f'''
@@ -11,13 +13,17 @@ Tipo 5 : Item; Aqui voçe escolhe o tipo de item e suas info, se ele explode ou 
 '''
 
 def criar_janela_item():
+
+    #Criaçao dajanela
     item = tk.Tk()
     item.title("Item")
-    texto_ex = tk.Label(item,text="teste")
-    texto_ex.grid(column=0,row=0)
+
+
+    #Fim da janela
     item.mainloop()
 
 def criar_janela_bloco():
+
     def fecha():
         bloco.destroy()
         janela_pri()
@@ -58,61 +64,72 @@ def criar_janela_bloco():
             messagebox.showinfo("Sucesso", f"Arquivo '{nome_arquivo}' salvo com sucesso.")
 
         except Exception as e:
-            messagebox.showerror("Erro ao salvar",str(e))        
+            messagebox.showerror("Erro ao salvar",str(e)) 
+
+    #------------------
     #criar janela
     bloco = tk.Tk()
     bloco.title('Criar arquivo')
     
     #texto opçoes
-    texto_1 = tk.Label(bloco,text="Aqui estao as opçoes e suas funçoes")
+    texto_func = tk.Label(bloco,text="Aqui estao as opçoes e suas funçoes")
 
 
     #nome da torre
-    texto_2 = tk.Label(bloco,text='Digite o nome do Seu bloco')
+    texto_nome = tk.Label(bloco,text='Digite o nome do Seu bloco')
     nome_bloco = tk.Entry(bloco,width=30)
 
     #descriçao do bloco
-    texto_3 = tk.Label(bloco,text='Descriçao do bloco')
+    texto_descri = tk.Label(bloco,text='Descriçao do bloco')
     descri_bloco = tk.Entry(bloco,width=30)
 
     #tamanho
-    texto_4 = tk.Label(bloco,text='Tamanha, 1=1x1 , 2=2x2')
+    texto_tam = tk.Label(bloco,text='Tamanha, 1=1x1 , 2=2x2')
     tam_bloco = tk.Entry(bloco,width=5)   
 
     #vida do bloco
-    texto_5 = tk.Label(bloco,text='Vida do bloco')
+    texto_vida = tk.Label(bloco,text='Vida do bloco')
     vida_bloco = tk.Entry(bloco,width=7)    
 
     #Nome do arquivo
-    texto_6 = tk.Label(bloco,text='Nome do arquivo (.hjson)')
+    texto_arq = tk.Label(bloco,text='Nome do arquivo (.hjson)')
     nome_arquivo_entry = tk.Entry(bloco,width=30)
+    #------------------
 
+
+    #Botoes
+    #------------------
+    #Botao de voltar para pagina
     voltar_pri = tk.Button(bloco,text='Voltar para pagina principal',command=fecha)
 
-
+    #Botao criar arquivo
     criar_item = tk.Button(bloco,text='Criar',command=criar_bloco)
+    #------------------
 
     #Posiçao dos elementos
-     #opçoes e ex
-    texto_1.grid(column=0,row=0, columnspan=2, pady=10)
-     #nome bloco
-    texto_2.grid(column=0,row=1, sticky='w', padx=5, pady=5)
+    #------------------
+    #opçoes e ex
+    texto_func.grid(column=0,row=0, columnspan=2, pady=10)
+    #nome bloco
+    texto_nome.grid(column=0,row=1, sticky='w', padx=5, pady=5)
     nome_bloco.grid(column=1,row=1, padx=5, pady=5)
     
-    texto_3.grid(column=0,row=2, sticky='w', padx=5, pady=5)
+    texto_descri.grid(column=0,row=2, sticky='w', padx=5, pady=5)
     descri_bloco.grid(column=1,row=2, padx=5, pady=5)
     
-    texto_4.grid(column=0,row=3, sticky='w', padx=5, pady=5)
+    texto_tam.grid(column=0,row=3, sticky='w', padx=5, pady=5)
     tam_bloco.grid(column=1,row=3, padx=5, pady=5)
     
-    texto_5.grid(column=0,row=4, sticky='w', padx=5, pady=5)
+    texto_vida.grid(column=0,row=4, sticky='w', padx=5, pady=5)
     vida_bloco.grid(column=1,row=4, padx=5, pady=5)
 
-    texto_6.grid(column=0, row=5,stick='w',padx=5,pady=5)
+    texto_arq.grid(column=0, row=5,stick='w',padx=5,pady=5)
     nome_arquivo_entry.grid(column=1,row=5,padx=5,pady=5)
 
     criar_item.grid(column=0,row=6, columnspan=2, pady=10)
     voltar_pri.grid(column=1,row=6,columnspan=2,padx=130,pady=20)
+    #------------------
+
     bloco.mainloop()
 
 
