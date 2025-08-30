@@ -3,12 +3,19 @@ from tkinter import messagebox
 import hjson 
 
 telinha = f'''
-+++++++++++++
-   __  __  
-    --       
-+++++++++++++
+Tipo 1 : Bloco; Uma parede para defesa \n\n
+Tipo 2 : Torre; Uma torre, voçe pode escolher algumas modificaçoes a mais \n\n
+Tipo 3 : Crafter; Um bloco que Craft itens , obs: o nome do item de entrada \n\n tem que ser identico a o do arquivo EX: Argon.hjson , entao tem que ser um item com nome Argon \n\n
+Tipo 4 : Transporte; Aqui o mais mesmo e colocar as sprites do meio de transporte \n\n 
+Tipo 5 : Item; Aqui voçe escolhe o tipo de item e suas info, se ele explode ou nao etc.
 '''
 
+def criar_janela_item():
+    item = tk.Tk()
+    item.title("Item")
+    texto_ex = tk.Label(item,text="teste")
+    texto_ex.grid(column=0,row=0)
+    item.mainloop()
 
 def criar_janela_bloco():
     def fecha():
@@ -122,6 +129,9 @@ def janela_pri():
         if tip == 1:
             janela.destroy()
             criar_janela_bloco()
+        if tip == 5:
+            janela.destroy()
+            criar_janela_item()
         else:
             messagebox.showinfo("Info", "Tipo de bloco ainda não implementado.")
 
