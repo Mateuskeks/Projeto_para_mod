@@ -65,8 +65,10 @@ def criar_janela_bloco():
         #Salvar o arquivo em hjson
         try:
             with open(nome_arquivo,'w') as arq:
+                arq.write(f'type Wall\n')
+                arq.write(f'name {nome}\n')
 
-                hjson.dump(dados,arq,ensure_ascii=False)
+                # hjson.dump(dados,arq,ensure_ascii=False)
             messagebox.showinfo("Sucesso", f"Arquivo '{nome_arquivo}' salvo com sucesso.")
 
         except Exception as e:
@@ -159,7 +161,7 @@ def janela_pri():
         if tip == 1:
             janela.destroy()
             criar_janela_bloco()
-        if tip == 5:
+        elif tip == 5:
             janela.destroy()
             criar_janela_item()
         else:
