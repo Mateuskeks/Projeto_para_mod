@@ -2,7 +2,7 @@ import tkinter as tk
 
 from tkinter import messagebox
 
-import hjson 
+import hjson
 
 telinha = f'''
 Tipo 1 : Bloco; Uma parede para defesa \n\n
@@ -24,7 +24,7 @@ def criar_janela_item():
     #--------------------------------------------------------------- Fim
 
 def criar_janela_bloco():
-    def fecha():
+    def volta():
         #Funçao para chamar a janela principal
         bloco.destroy()
         janela_pri()
@@ -65,8 +65,14 @@ def criar_janela_bloco():
         #Salvar o arquivo em hjson
         try:
             with open(nome_arquivo,'w') as arq:
-                arq.write(f'type Wall\n')
-                arq.write(f'name {nome}\n')
+                arq.write(f'name: "{nome}"\n')
+                arq.write(f'type: "Wall"\n')
+                arq.write(f'description: "{descricao}"\n')
+                arq.write(f'health: {vida}\n')
+                arq.write(f'size {tamanho}\n')
+                arq.write(f'requirements:[\n copper/10 \n]\n')
+                arq.write(f'category: "sla"\n')
+                arq.write(f'research: ""')
 
                 # hjson.dump(dados,arq,ensure_ascii=False)
             messagebox.showinfo("Sucesso", f"Arquivo '{nome_arquivo}' salvo com sucesso.")
@@ -108,7 +114,7 @@ def criar_janela_bloco():
 
     #------------------ Botoes
     #Botao de voltar para pagina
-    voltar_pri = tk.Button(bloco,text='Voltar para pagina principal',command=fecha)
+    voltar_pri = tk.Button(bloco,text='Voltar para pagina principal',command=volta)
 
     #Botao criar arquivo
     criar_item = tk.Button(bloco,text='Criar',command=criar_bloco)
@@ -150,6 +156,14 @@ def criar_janela_bloco():
     #--------------------------------------------------------------- Fim
 
 def janela_pri():
+    #Funçao de Fechar o progama
+    #------------------
+    def fechar_pri():
+        janela.destroy()
+    #------------------
+
+    #Escolher tipo de Item
+    #------------------
     def tipo():
 
         try:
@@ -166,21 +180,34 @@ def janela_pri():
             criar_janela_item()
         else:
             messagebox.showinfo("Info", "Tipo de bloco ainda não implementado.")
+        #------------------
 
-        
+    #janela
+    #------------------
     janela = tk.Tk()
     janela.title('Janela Principal')
- 
+    #------------------
+
+    #Texto e Entrada
+    #------------------
     escolha_texto = tk.Label(janela,text='Digite o numero para criar o tipo de bloco')
     tela = tk.Label(janela,text=telinha)
+
     entrada = tk.Entry(janela)
-    
+
     enviar = tk.Button(janela,text='Enviar o tipo',command=tipo)
 
+    sair = tk.Button(janela,text="Fechar",command=fechar_pri)
+    #------------------
+
+    #Posicionar itens
+    #------------------
+    sair.grid(column=0,row=4)
     escolha_texto.grid(column=0,row=0)
     entrada.grid(column=0,row=1)
     enviar.grid(column=0,row=2)
     tela.grid(column=0,row=3)
+    #------------------
 
     janela.mainloop()
 
