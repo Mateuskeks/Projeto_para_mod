@@ -38,7 +38,9 @@ def criar_janela_bloco():
         descricao = descri_bloco.get().strip()
         tamanho = tam_bloco.get().strip()
         vida = vida_bloco.get().strip()
+        descoberto = descoberto_bloco.get().strip()
         nome_arquivo = nome_arquivo_entry.get().strip()
+        reque = reque_bloco.get().split(',')
         
         #Verificaçao para verse todos os campos estao completos
         if not nome or not descricao or not tamanho.isdigit() or not vida.isdigit() or not nome_arquivo:
@@ -46,22 +48,7 @@ def criar_janela_bloco():
             return
         if not nome_arquivo.endswith(".hjson"):
             nome_arquivo += ".hjson"
-        
-        #Criaçao da estrutura do arquivo hjson
-        dados = f'''
-            "type": "Wall",
-            "name": nome,
-            "localizedName": f"{descricao}",
-            "description": descricao,
-            "category": "defense",
-            "category": "defense",
-            "size": int(tamanho),
-            "health": int(vida),
-            "requirements": ["copper/10"],
-            "buildCostMultiplier": 1.0
-        '''
-        #test
-        print(dados)
+     
         #Salvar o arquivo em hjson
         try:
             with open(nome_arquivo,'w') as arq:
@@ -70,9 +57,13 @@ def criar_janela_bloco():
                 arq.write(f'description: "{descricao}"\n')
                 arq.write(f'health: {vida}\n')
                 arq.write(f'size {tamanho}\n')
-                arq.write(f'requirements:[\n copper/10 \n]\n')
-                arq.write(f'category: "sla"\n')
-                arq.write(f'research: ""')
+                lista_requisitos = reque_bloco.get().split(',')
+                arq.write('requirements: [\n')
+                for req in lista_requisitos:
+                    arq.write(f'  {req.strip()}\n')
+                arq.write(f']\n')
+                arq.write(f'category: "defense"\n')
+                arq.write(f'research: "{descoberto}"')
 
                 # hjson.dump(dados,arq,ensure_ascii=False)
             messagebox.showinfo("Sucesso", f"Arquivo '{nome_arquivo}' salvo com sucesso.")
@@ -106,6 +97,14 @@ def criar_janela_bloco():
     #vida do bloco
     texto_vida = tk.Label(bloco,text='Vida do bloco')
     vida_bloco = tk.Entry(bloco,width=7)    
+
+    #Oq precisa pra criar item
+    texto_reque = tk.Label(bloco,text='Itens para criar o item , digite como \n no exemplo | copper/12 , lead/12 | digite o nome do arquivo do \n  item e a quantidade separada por barra(,) e os itens necessarios por virgula(,)')
+    reque_bloco = tk.Entry(bloco,width=50)
+
+    #O item vai ser desbloqueado a pos qual item?
+    texto_descoberto = tk.Label(bloco,text='Desbloquear a pos qual item')
+    descoberto_bloco = tk.Entry(bloco,width=7)
 
     #Nome do arquivo
     texto_arq = tk.Label(bloco,text='Nome do arquivo (.hjson)')
@@ -142,13 +141,21 @@ def criar_janela_bloco():
     texto_vida.grid(column=0,row=4, sticky='w', padx=5, pady=5)
     vida_bloco.grid(column=1,row=4, padx=5, pady=5)
 
+    #descoberto bloco
+    texto_descoberto.grid(column=0,row=5,sticky='w',padx=5,pady=5)
+    descoberto_bloco.grid(column=1,row=5,padx=5,pady=5)
+
+    #reque bloco
+    texto_reque.grid(column=0,row=6,sticky='w',padx=5,pady=5)
+    reque_bloco.grid(column=1,row=6,padx=5,pady=5)
+
     #arquivo bloco
-    texto_arq.grid(column=0, row=5,stick='w',padx=5,pady=5)
-    nome_arquivo_entry.grid(column=1,row=5,padx=5,pady=5)
+    texto_arq.grid(column=0, row=7,stick='w',padx=5,pady=5)
+    nome_arquivo_entry.grid(column=1,row=7,padx=5,pady=5)
 
     #Botao voltar e criar
-    criar_item.grid(column=0,row=6, columnspan=2, pady=10)
-    voltar_pri.grid(column=1,row=6,columnspan=2,padx=130,pady=20)
+    criar_item.grid(column=0,row=8, columnspan=2, pady=10)
+    voltar_pri.grid(column=1,row=8,columnspan=2,padx=130,pady=20)
     #------------------
   
     #Fim do janela
