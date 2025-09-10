@@ -13,12 +13,39 @@ Tipo 5 : Item; Aqui voçe escolhe o tipo de item e suas info, se ele explode ou 
 '''
 
 def criar_janela_item():
-
+    def voltar():
+        item.destroy()
+        janela_pri()
+    def criar_item():
+        print("oi")
     #Criaçao da janela
     item = tk.Tk()
     item.title("Item")
 
+    #INputs e entrys
+    texto_1 = tk.Label(item,text='Digite o nome do item')
+    nome_item = tk.Entry(item,width=10)
 
+    texto_2 = tk.Label(item,text='descriçao do seu item')
+    descri_item = tk.Entry(item,width=20)
+
+    texto_3 = tk.Label(item,text='Digite a cor do seu item ')
+    cor_item = tk.Entry(item,width=10)
+
+    enviar = tk.Button(item,text='Criar',command=criar_item)
+    voltar = tk.Button(item,text='voltar',command=voltar)
+
+    texto_1.grid(column=0 ,row=1, sticky='w', padx=5, pady=5)
+    nome_item.grid(column=1,row=1)
+
+    texto_2.grid(column=0,row=2, sticky='w', padx=5, pady=5)
+    descri_item.grid(column=1,row=2)
+
+    texto_3.grid(column=0,row=3, sticky='w', padx=5, pady=5)
+    cor_item.grid(column=1,row=3)
+
+    enviar.grid(column=0,row=4)
+    voltar.grid(column=1,row=4)
     #Fim da janela
     item.mainloop()
     #--------------------------------------------------------------- Fim
