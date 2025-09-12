@@ -12,12 +12,65 @@ Tipo 4 : Transporte; Aqui o mais mesmo e colocar as sprites do meio de transport
 Tipo 5 : Item; Aqui voçe escolhe o tipo de item e suas info, se ele explode ou nao etc.
 '''
 
+def criar_janela_crafter():
+    def voltar():
+        criar_janela_crafter.destroy()
+        janela_pri()
+    def criar_crafter():
+        print('oi')
+    #name: ""
+    #type: "GenericCrafter"
+    #description: ""
+    #category: ""
+    #size: 3 
+    #craftEffect
+    #health: 300 
+    #hasItems: true
+    #hasPower: true
+    #hasLiquids: false
+    #craftTime: 33
+    #itemCapacity:
+    #CONSUME:{ items: {items: [coal/2, sand/2]} power: {} }
+    #requirements: [copper/12, lead/12]
+    #research: "silicon-smelter"
+    #outputItem: silicon/3
+    #ambientSound: 'respawning
+
+    crafter = tk.Tk()
+    crafter.title("Crafter")
+    
+    texto = tk.Label(crafter,text="Olaaaaa")
+    texto.grid(column=0,row=0)
+
+    crafter.mainloop()
+
 def criar_janela_item():
     def voltar():
         item.destroy()
         janela_pri()
     def criar_item():
-        print("oi")
+
+        print('1')
+        nome = nome_item.get()
+        descri = descri_item.get()
+        cor = cor_item.get()
+        nome_arquivo_item = arq_item.get()
+
+        if not nome or not descri or not cor or not nome_arquivo_item:
+            messagebox.showerror("Erro , Preenche todos os campos necessarios")
+            return
+        if not nome_arquivo_item.endswith(".hjson"):
+            nome_arquivo_item += ".hjson"
+        try:
+            with open(nome_arquivo_item,'w') as arq:
+                arq.write(f'name: "{nome}"\n')
+                arq.write(f'description: "{descri}"\n')
+                arq.write(f'color: "{cor}"\n')
+            messagebox.showinfo("Sucesso", f"Arquivo '{nome_arquivo_item}' salvo com sucesso.")
+        except Exception as e:
+            print('3')
+            messagebox.showerror(f"Erro",str(e))
+    
     #Criaçao da janela
     item = tk.Tk()
     item.title("Item")
@@ -32,6 +85,9 @@ def criar_janela_item():
     texto_3 = tk.Label(item,text='Digite a cor do seu item ')
     cor_item = tk.Entry(item,width=10)
 
+    texto_arq = tk.Label(item,text='Digite o nome do arquivo , ele sera . hjson')
+    arq_item = tk.Entry(item,width=30)
+
     enviar = tk.Button(item,text='Criar',command=criar_item)
     voltar = tk.Button(item,text='voltar',command=voltar)
 
@@ -44,8 +100,11 @@ def criar_janela_item():
     texto_3.grid(column=0,row=3, sticky='w', padx=5, pady=5)
     cor_item.grid(column=1,row=3)
 
-    enviar.grid(column=0,row=4)
-    voltar.grid(column=1,row=4)
+    texto_arq.grid(column=0,row=4,sticky='w',padx=5,pady=5)
+    arq_item.grid(column=1,row=4)
+
+    enviar.grid(column=0,row=5)
+    voltar.grid(column=1,row=5)
     #Fim da janela
     item.mainloop()
     #--------------------------------------------------------------- Fim
@@ -209,6 +268,9 @@ def janela_pri():
         if tip == 1:
             janela.destroy()
             criar_janela_bloco()
+        elif tip == 3:
+            janela.destroy()
+            criar_janela_crafter()
         elif tip == 5:
             janela.destroy()
             criar_janela_item()

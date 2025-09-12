@@ -1,0 +1,10 @@
+name: "teli"
+type: "Wall"
+description: "qq"
+health: 11
+size 1
+requirements: [
+  qq/3
+]
+category: "defense"
+research: "k"
